@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Service Manager</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🖥️ Service Manager</h1>
+            <div id="last-update" class="update-time">Loading...</div>
+        </header>
+
+        <main>
+            <!-- Web Application Container -->
+            <section class="service-card">
+                <div class="service-header">
+                    <h2>Web Application</h2>
+                    <span class="container-name">{{ web_container }}</span>
+                </div>
+                <div class="service-body">
+                    <div class="status-indicator" id="web-status">
+                        <div class="status-dot"></div>
+                        <span class="status-text">Checking...</span>
+                    </div>
+                    <div class="service-info" id="web-info">
+                        <div class="info-row">
+                            <span class="label">State:</span>
+                            <span class="value" id="web-state">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Image:</span>
+                            <span class="value" id="web-image">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">ID:</span>
+                            <span class="value" id="web-id">-</span>
+                        </div>
+                    </div>
+                    <button class="restart-btn" id="restart-web" onclick="restartService('web')">
+                        🔄 Restart Web App
+                    </button>
+                </div>
+            </section>
+
+            <!-- Database Container -->
+            <section class="service-card">
+                <div class="service-header">
+                    <h2>Database</h2>
+                    <span class="container-name">{{ db_container }}</span>
+                </div>
+                <div class="service-body">
+                    <div class="status-indicator" id="db-status">
+                        <div class="status-dot"></div>
+                        <span class="status-text">Checking...</span>
+                    </div>
+                    <div class="service-info" id="db-info">
+                        <div class="info-row">
+                            <span class="label">State:</span>
+                            <span class="value" id="db-state">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Image:</span>
+                            <span class="value" id="db-image">-</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">ID:</span>
+                            <span class="value" id="db-id">-</span>
+                        </div>
+                    </div>
+                    <button class="restart-btn" id="restart-db" onclick="restartService('database')">
+                        🔄 Restart Database
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Notification Toast -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <script>
+        const REFRESH_INTERVAL = {{ refresh_interval }};
+    </script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
