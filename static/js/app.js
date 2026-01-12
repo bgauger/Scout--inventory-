@@ -58,28 +58,24 @@ function updateUI(data) {
 function updateServiceCard(serviceType, containerData) {
     const statusEl = document.getElementById(`${serviceType}-status`);
     const stateEl = document.getElementById(`${serviceType}-state`);
-    const imageEl = document.getElementById(`${serviceType}-image`);
-    const idEl = document.getElementById(`${serviceType}-id`);
 
     // Update status indicator
-    statusEl.className = 'status-indicator';
+    statusEl.className = 'status-display';
     statusEl.classList.add(containerData.status);
 
     // Update status text
-    const statusText = statusEl.querySelector('.status-text');
-    statusText.textContent = formatStatus(containerData.status);
+    const statusLabel = statusEl.querySelector('.status-label');
+    statusLabel.textContent = formatStatus(containerData.status);
 
-    // Update info fields
+    // Update state
     stateEl.textContent = containerData.state || 'Unknown';
-    imageEl.textContent = containerData.image || 'N/A';
-    idEl.textContent = containerData.id || 'N/A';
 
     // Show error if present
     if (containerData.error) {
         stateEl.textContent = containerData.error;
-        stateEl.style.color = '#dc3545';
+        stateEl.style.color = '#ff4444';
     } else {
-        stateEl.style.color = '#495057';
+        stateEl.style.color = '#00d9ff';
     }
 }
 
@@ -88,14 +84,14 @@ function updateServiceCard(serviceType, containerData) {
  */
 function formatStatus(status) {
     const statusMap = {
-        'running': '✓ Running',
-        'stopped': '✕ Stopped',
-        'exited': '✕ Exited',
-        'restarting': '⟳ Restarting',
-        'paused': '⏸ Paused',
-        'not_found': '⚠ Not Found',
-        'error': '⚠ Error',
-        'unknown': '? Unknown'
+        'running': 'RUNNING',
+        'stopped': 'STOPPED',
+        'exited': 'EXITED',
+        'restarting': 'RESTARTING',
+        'paused': 'PAUSED',
+        'not_found': 'NOT FOUND',
+        'error': 'ERROR',
+        'unknown': 'UNKNOWN'
     };
 
     return statusMap[status] || status.toUpperCase();
@@ -127,7 +123,7 @@ async function restartService(serviceType) {
     isRestarting = true;
     const button = document.getElementById(`restart-${serviceType === 'web' ? 'web' : 'db'}`);
     button.disabled = true;
-    button.textContent = '⏳ Restarting...';
+    button.textContent = 'RESTARTING...';
 
     try {
         const response = await fetch(`/api/restart/${serviceType}`, {
@@ -152,7 +148,7 @@ async function restartService(serviceType) {
     } finally {
         isRestarting = false;
         button.disabled = false;
-        button.textContent = `🔄 Restart ${serviceType === 'web' ? 'Web App' : 'Database'}`;
+        button.textContent = 'RESTART';
     }
 }
 
