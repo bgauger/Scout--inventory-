@@ -11,8 +11,9 @@ body {
     background: #1a1a2e;
     color: #eee;
     overflow: hidden;
-    width: 800px;
-    height: 480px;
+    width: 100vw;
+    height: 100vh;
+    margin: 0;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
